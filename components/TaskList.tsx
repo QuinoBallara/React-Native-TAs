@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, FlatList, SafeAreaView } from 'react-native'
 import { Task } from '@/types/task';
 import { styles } from '@/styles/appStyles';
+import Swipeable from "react-native-gesture-handler/Swipeable";
 
 type TaskListProps = {
     task: Task,
 }
+
+
 
 export const TaskList = ({ task }: TaskListProps) => {
     const [taskList, setTaskList] = useState<Task[]>([]);
@@ -16,6 +19,14 @@ export const TaskList = ({ task }: TaskListProps) => {
 
     const removeFromTaskList = (id: string) => {
         setTaskList(taskList.filter(task => task.id !== id));
+    }
+
+    const deleteButton = () => {
+        return (
+            <View style={[taskListStyles.deleteButton]}>
+                <Text>Delete</Text>
+            </View>
+        )
     }
 
     useEffect(() => {
@@ -43,23 +54,33 @@ export const TaskList = ({ task }: TaskListProps) => {
             marginVertical: 20,
             marginHorizontal: 0,
         },
+        deleteButton: {
+            padding: 30,
+            marginVertical: 20,
+            borderWidth: 1,
+            minWidth: '30%',
+            marginLeft: 'auto',
+            backgroundColor: 'red'
+        }
     })
 
     return (
         <SafeAreaView style={{ width: '90%', flex: 1 }}>
             <FlatList
+
                 data={taskList}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
-                    <View style={taskListStyles.task}>
-                        <Text style={taskListStyles.title}>{item.title}</Text>
-                        <Text style={taskListStyles.description}>{item.description}</Text>
-                        <TouchableOpacity onPress={() => removeFromTaskList(item.id)} style={styles.button}>
-                            <Text style={styles.button}>Remove</Text>
-                        </TouchableOpacity>
-                    </View>
-                )}
+                    <Swipeable onSwipeableOpen={() => { removeFromTaskList(item.id) }} renderRightActions={() => deleteButton()}>
+
+                        <View style={taskListStyles.task}>
+                            <Text style={taskListStyles.title}>{item.title}</Text>
+                            <Text style={taskListStyles.description}>{item.description}</Text>
+                        </View>
+                    </Swipeable>
+                )
+                }
             />
-        </SafeAreaView>
+        </SafeAreaView >
     )
 }

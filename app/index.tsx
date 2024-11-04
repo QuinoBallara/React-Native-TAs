@@ -5,6 +5,7 @@ import { GestureHandlerRootView, TextInput } from "react-native-gesture-handler"
 import { TaskList } from "@/components/TaskList";
 import { styles } from "@/styles/appStyles";
 
+
 export default function Index() {
 
   const [task, setTask] = useState<Task>({
