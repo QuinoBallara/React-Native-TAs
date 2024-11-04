@@ -9,25 +9,21 @@ export default function Index() {
 
   const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
+
+    },
+    text: {
+      fontSize: 50,
+      fontWeight: "bold",
+      textAlign: "center",
+      padding: 10,
+      marginTop: 10
     },
     input: {
-      height: 40,
-      margin: 12,
-      borderWidth: 1,
+      height: 50,
+      margin: 10,
       padding: 10,
-    },
-
-    text: {
-      fontSize: 20,
-      fontWeight: "bold",
-    },
-    box: {
-      width: 100,
-      height: 100,
+      borderWidth: 1,
+      borderColor: "black",
     }
   });
 
@@ -40,8 +36,8 @@ export default function Index() {
   return (
     <GestureHandlerRootView>
       <View style={styles.container}>
-        <TextInput style={[styles.box, styles.input]} value={text} onChangeText={handleSetInput} editable />
-        <Text style={[styles.text, styles.box]}>{text}</Text>
+        <TextInput style={[styles.input]} value={text} onChangeText={handleSetInput} placeholder="Enter text" editable />
+        <Text style={[styles.text]}>{text}</Text>
       </View>
     </GestureHandlerRootView>
   );
