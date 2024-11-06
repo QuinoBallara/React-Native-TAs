@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { apiKey } from '@/constants/apiKey'
 import { Image, StyleSheet, Text, View } from 'react-native'
 import { SearchBar } from 'react-native-screens'
+import { useWindowDimensions } from 'react-native'
 
 type MovieProps = {
     title: string,
@@ -16,6 +17,8 @@ type MovieData = {
 }
 export const Movie = ({ title, releaseYear, search }: MovieProps) => {
     const [movieData, setMovieData] = useState<MovieData>()
+    const windowHeight = useWindowDimensions().height;
+    const windowWidth = useWindowDimensions().width;
 
     useEffect(() => {
         let formattedTitle = title.split(' ').join('+')
@@ -30,12 +33,12 @@ export const Movie = ({ title, releaseYear, search }: MovieProps) => {
 
     const style = StyleSheet.create({
         movieTitle: {
-            fontSize: 20,
+            fontSize: windowWidth / 20,
             fontWeight: 'bold',
             color: 'coral'
         },
         moviePlot: {
-            fontSize: 15
+            fontSize: windowWidth / 30,
         },
         movieImage: {
             width: 300,
@@ -45,9 +48,9 @@ export const Movie = ({ title, releaseYear, search }: MovieProps) => {
             flex: 1,
             justifyContent: 'flex-start',
             alignItems: 'center',
-            marginTop: 20,
-            gap: 10,
-            marginHorizontal: 5
+            marginTop: windowHeight / 100,
+            gap: windowHeight / 60,
+            marginHorizontal: windowWidth / 30
         }
     })
 

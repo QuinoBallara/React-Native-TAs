@@ -1,36 +1,41 @@
 import { Text, TouchableOpacity, View, TextInput, StyleSheet } from "react-native";
 import React, { useState } from "react";
 import { Movie } from "@/components/Movie";
+import { useWindowDimensions } from "react-native";
 
 export default function Index() {
   const [title, setTitle] = useState("");
   const [releaseYear, setReleaseYear] = useState("");
   const [search, setSearch] = useState(false);
 
+  const windowHeight = useWindowDimensions().height;
+  const windowWidth = useWindowDimensions().width;
+
   const styles = StyleSheet.create({
     container: {
       flex: 1,
       justifyContent: "flex-start",
       alignItems: "center",
-      gap: 10,
+      gap: windowHeight / 60,
     },
     button: {
       backgroundColor: "coral",
-      padding: 10,
+      padding: windowWidth / 50,
       borderRadius: 5,
       color: "white",
     },
     inputs: {
       backgroundColor: "white",
-      padding: 10,
+      padding: windowWidth / 30,
       borderRadius: 5,
-      width: 300,
+      width: windowWidth / 1.5,
       textAlign: "center",
     },
     title: {
-      fontSize: 60,
+      fontSize: windowWidth / 8,
       fontWeight: "bold",
       color: 'coral',
+      marginBottom: windowHeight / 100
     }
   })
 
