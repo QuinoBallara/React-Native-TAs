@@ -16,21 +16,16 @@ type MovieData = {
 }
 export const Movie = ({ title, releaseYear, search }: MovieProps) => {
     const [movieData, setMovieData] = useState<MovieData>()
-    const [shouldSearch, setShouldSearch] = useState(false)
 
     useEffect(() => {
-        if (search && shouldSearch) {
-            let formattedTitle = title.split(' ').join('+')
-            let addYear = releaseYear ? `&y=${releaseYear}` : ''
-            fetch(`http://www.omdbapi.com/?apikey=${apiKey}&t=${formattedTitle}${addYear}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            }).then(response => response.json()).then(data => { setMovieData(data) }).then(() => setShouldSearch(false))
-        } else if (search) {
-            setShouldSearch(true)
-        }
+        let formattedTitle = title.split(' ').join('+')
+        let addYear = releaseYear ? `&y=${releaseYear}` : ''
+        fetch(`http://www.omdbapi.com/?apikey=${apiKey}&t=${formattedTitle}${addYear}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).then(response => response.json()).then(data => { setMovieData(data) })
     }, [search])
 
     const style = StyleSheet.create({

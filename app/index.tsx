@@ -24,7 +24,8 @@ export default function Index() {
       backgroundColor: "white",
       padding: 10,
       borderRadius: 5,
-
+      width: 300,
+      textAlign: "center",
     },
     title: {
       fontSize: 60,
@@ -32,6 +33,12 @@ export default function Index() {
       color: 'coral',
     }
   })
+
+  const searchMovie = () => {
+    if (title.length > 0) {
+      setSearch(!search)
+    }
+  }
   return (
     <View
       style={styles.container}
@@ -42,7 +49,7 @@ export default function Index() {
         placeholder="Release Year (optional)"
         value={releaseYear}
         onChangeText={setReleaseYear} />
-      <TouchableOpacity style={styles.button} onPress={() => { setSearch(!search) }}>
+      <TouchableOpacity style={styles.button} onPress={() => { searchMovie() }}>
         <Text style={styles.button} >Search</Text>
       </TouchableOpacity>
       <Movie title={title} releaseYear={releaseYear} search={search} />
