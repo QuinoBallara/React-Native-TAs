@@ -2,6 +2,7 @@ import { Text, TouchableOpacity, View, TextInput, StyleSheet } from "react-nativ
 import React, { useState } from "react";
 import { Movie } from "@/components/Movie";
 import { useWindowDimensions } from "react-native";
+import { Platform } from "react-native";
 
 export default function Index() {
   const [title, setTitle] = useState("");
@@ -44,20 +45,31 @@ export default function Index() {
       setSearch(!search)
     }
   }
-  return (
-    <View
-      style={styles.container}
-    >
-      <Text style={styles.title}>Moogle</Text>
-      <TextInput style={styles.inputs} placeholder="Title" value={title} onChangeText={setTitle} />
-      <TextInput style={styles.inputs}
-        placeholder="Release Year (optional)"
-        value={releaseYear}
-        onChangeText={setReleaseYear} />
-      <TouchableOpacity style={styles.button} onPress={() => { searchMovie() }}>
-        <Text style={styles.button} >Search</Text>
-      </TouchableOpacity>
-      <Movie title={title} releaseYear={releaseYear} search={search} />
-    </View>
-  );
+  if (Platform.OS === 'web' || Platform.OS === 'ios') { //los usuarios de android no merecen ver la app
+    return (
+      <View
+        style={styles.container}
+      >
+        <Text style={styles.title}>Moogle</Text>
+        <TextInput style={styles.inputs} placeholder="Title" value={title} onChangeText={setTitle} />
+        <TextInput style={styles.inputs}
+          placeholder="Release Year (optional)"
+          value={releaseYear}
+          onChangeText={setReleaseYear} />
+        <TouchableOpacity style={styles.button} onPress={() => { searchMovie() }}>
+          <Text style={styles.button} >Search</Text>
+        </TouchableOpacity>
+        <Movie title={title} releaseYear={releaseYear} search={search} />
+      </View>
+    );
+  } else if (Platform.OS === 'android') {
+    return (
+      <View
+        style={styles.container}
+      >
+        <Text style={styles.title}>Moogle</Text>
+        <Text style={{ color: 'coral' }}>Android users are not welcome here</Text>
+      </View>
+    )
+  }
 }
