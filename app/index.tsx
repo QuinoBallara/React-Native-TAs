@@ -1,4 +1,4 @@
-import { Text, View, Image, StyleSheet } from "react-native";
+import { Text, View, Image, StyleSheet, Alert } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
 import { GestureHandlerRootView, TouchableOpacity } from "react-native-gesture-handler";
@@ -16,6 +16,8 @@ export default function Index() {
 
     if (!result.canceled) {
       setImage(result.assets[0].uri);
+    } else {
+      Alert.alert("Permission required", "You need to allow camera permissions to take a photo");
     }
   }
 
